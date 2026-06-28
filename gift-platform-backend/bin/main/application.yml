@@ -1,0 +1,48 @@
+spring:
+  application:
+    name: gift-platform-backend
+
+  datasource:
+    # ============================================================
+    # MySQL 접속 정보를 아래에 맞게 수정하세요.
+    # 예) jdbc:mysql://localhost:3306/giftpick_db?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    # ============================================================
+    url: jdbc:mysql://localhost:3306/giftpick_db?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8&allowPublicKeyRetrieval=true
+    username: root          # 실제 DB 계정명으로 변경하세요
+    password: root1234      # 실제 DB 비밀번호로 변경하세요
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update      # 개발 환경: update / 운영 환경: validate 로 변경
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQLDialect
+    open-in-view: false
+
+server:
+  port: 8080
+
+# JWT 설정
+jwt:
+  # ============================================================
+  # 운영 환경에서는 반드시 환경변수(예: JWT_SECRET)로 관리하세요.
+  # 최소 256bit(32자 이상) 문자열을 권장합니다.
+  # ============================================================
+  secret: giftpick-secret-key-must-be-at-least-256-bits-long-for-hs256-algorithm
+  expiration-ms: 86400000   # 1일 (ms 단위)
+
+# Swagger UI 설정
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+  api-docs:
+    path: /api-docs
+
+logging:
+  level:
+    com.giftpick: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.orm.jdbc.bind: TRACE
